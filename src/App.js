@@ -16,9 +16,9 @@ function App() {
   const [userInfo, setUserInfo] = useState(mockUserInfo);
   const [searchQuery, setSearchQuery] = useState();
 
-  useEffect(() => {
-    // API fetch for Tweets will go here
-  });
+  // useEffect(() => {
+  //   // API fetch for Tweets will go here
+  // },[]);
 
   return (
     <>
@@ -29,17 +29,17 @@ function App() {
       <main>
         {/* inside each component, wrap html in <section> */}
         <Switch>
-          <Route>
-            <TweetsOverview tweets={tweets}></TweetsOverview>
-          </Route>
-          <Route>
+          <Route path="/tweet/:id?">
             <TweetDetails tweets={tweets}></TweetDetails>
           </Route>
-          <Route>
+          <Route path="/search">
             <SearchResults tweets={tweets}></SearchResults>
           </Route>
-          <Route>
+          <Route path="/userinfo">
             <UserInfo tweets={tweets} userInfo={userInfo}></UserInfo>
+          </Route>
+          <Route exact path="/">
+            <TweetsOverview tweets={tweets}></TweetsOverview>
           </Route>
         </Switch>
       </main>
