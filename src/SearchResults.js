@@ -1,26 +1,25 @@
-export default function SearchResults() {
+import TweetPreview from "./TweetPreview"
+
+export default function SearchResults({tweets, searchQuery}) {
+  
+  const filterTweets = tweets.filter(tweet => {
+    if(!searchQuery) {
+      return tweet;
+    } 
+    const tweetLowerCase=tweet.text.toLowerCase();
+    const searchQueryLowerCase=searchQuery.toLowerCase();
+    return tweetLowerCase.includes(searchQueryLowerCase);
+    
+  })
+  
+  
   return (
     <>
       {/* filter tweets according to some search query and display only those tweets */}
-      <div>
-        <ul>
-          {tweets.map((tweet) => (
-            <li key={tweet.id}>{tweet.name}</li>
-          ))}
-          </ul>
-      </div>
-      
-      const filterTweets = (tweets, query) => {
-        if(!query) {
-          return tweets;
-      }
-      
-      return tweets.filter((tweet) => {
-          const tweetName = tweet.name.toLowerCase();
-          return tweetName.includes(query);
-      });
-    };
-      {/*  */}
+      <h4>Search Results</h4>
+      {filterTweets.map(tweet => {
+        return <TweetPreview tweet={tweet}></TweetPreview>
+      })}
     </>
   );
 }

@@ -4,7 +4,6 @@ export default function TweetPreview({ tweet }) {
 
   // delete code above
 
-  console.log(tweet);
   return (
     <>
       {/* Franz' code for testing routing below ,can be deleted */}

@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       <header>
-        <Navbar></Navbar>
+        <Navbar setSearchQuery={setSearchQuery}></Navbar>
       </header>
 
       <main>
@@ -33,7 +33,7 @@ function App() {
             <TweetDetails tweets={tweets}></TweetDetails>
           </Route>
           <Route path="/search">
-            <SearchResults tweets={tweets}></SearchResults>
+            <SearchResults tweets={tweets} searchQuery={searchQuery}></SearchResults>
           </Route>
           <Route path="/userinfo">
             <UserInfo tweets={tweets} userInfo={userInfo}></UserInfo>
