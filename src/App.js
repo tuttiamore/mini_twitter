@@ -11,6 +11,8 @@ import UserInfo from "./UserInfo";
 import mockTweetData from "./mockTweetData.js";
 import mockUserInfo from "./mockUserInfo.js";
 
+
+
 function App() {
   const [tweets, setTweets] = useState(mockTweetData);
   const [userInfo, setUserInfo] = useState(mockUserInfo);
