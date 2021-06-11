@@ -1,7 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useState, useEffect, useCallback } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import axios from "axios";
 import Navbar from "./Navbar";
 import TweetsOverview from "./TweetsOverview";
@@ -17,6 +17,7 @@ function App() {
   const [userInfo, setUserInfo] = useState();
   const [searchQuery, setSearchQuery] = useState();
   const [userInfoCurrent, setUserInfoCurrent] = useState();
+  const history = useHistory();
 
   // const fetchImages = useCallback(async () => {
   //   const res = await axios.get("https://api.imgflip.com/get_memes");
@@ -59,19 +60,26 @@ function App() {
             {/* inside each component, wrap html in <section> */}
             <Switch>
               <Route path="/tweet/:id?">
-                <TweetDetails tweets={tweets}></TweetDetails>
+                <TweetDetails
+                  tweets={tweets}
+                  fetchData={fetchData}
+                ></TweetDetails>
               </Route>
               <Route path="/search">
                 <SearchResults
                   tweets={tweets}
                   searchQuery={searchQuery}
+                  fetchData={fetchData}
                 ></SearchResults>
               </Route>
               <Route path="/user/:id?">
-                <UserInfo tweets={tweets} userInfo={userInfo}></UserInfo>
+                <UserInfo userInfo={userInfo} fetchData={fetchData}></UserInfo>
               </Route>
               <Route exact path="/">
-                <TweetsOverview tweets={tweets}></TweetsOverview>
+                <TweetsOverview
+                  tweets={tweets}
+                  fetchData={fetchData}
+                ></TweetsOverview>
               </Route>
             </Switch>
           </main>
