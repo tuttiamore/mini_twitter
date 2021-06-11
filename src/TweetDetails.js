@@ -3,17 +3,18 @@ import { format } from "date-fns";
 
 export default function TweetDetails({ tweets }) {
   const { id } = useParams();
-  const tweet = tweets.filter((tweet) => tweet.id == id)[0];
+  const tweet = tweets.filter((tweet) => tweet._id == id)[0];
 
   return (
     <>
       <div className="card">
         <div className="card-body">
           <h5 className="card-subtitle mb-2 d-inline-block">
-            User {tweet.id_user}
+            User {tweet.name}
           </h5>
           <h6 className="card-subtitle mb-2 text-muted d-inline-block ms-1">
-            {format(tweet.date, "yyyy-MM-dd HH:mm:ss")}
+            {/* {format(tweet.date, "yyyy-MM-dd HH:mm:ss")} */}
+            {tweet.date}
           </h6>
 
           <p className="card-text">{tweet.text}</p>

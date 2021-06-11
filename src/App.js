@@ -1,36 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
-import { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import axios from 'axios';
-import Navbar from './Navbar';
-import TweetsOverview from './TweetsOverview';
-import TweetPreview from './TweetPreview';
-import TweetDetails from './TweetDetails';
-import SearchResults from './SearchResults';
-import UserInfo from './UserInfo';
-import mockTweetData from './mockTweetData.js';
-import mockUserInfo from './mockUserInfo.js';
-
-
+import logo from "./logo.svg";
+import "./App.css";
+import { useState, useEffect, useCallback } from "react";
+import { Route, Switch } from "react-router-dom";
+import axios from "axios";
+import Navbar from "./Navbar";
+import TweetsOverview from "./TweetsOverview";
+import TweetPreview from "./TweetPreview";
+import TweetDetails from "./TweetDetails";
+import SearchResults from "./SearchResults";
+import UserInfo from "./UserInfo";
+import mockTweetData from "./mockTweetData.js";
+import mockUserInfo from "./mockUserInfo.js";
 
 function App() {
-  const [tweets, setTweets] = useState(mockTweetData);
-  const [userInfo, setUserInfo] = useState(mockUserInfo);
+  const [tweets, setTweets] = useState();
+  const [userInfo, setUserInfo] = useState();
   const [searchQuery, setSearchQuery] = useState();
+  const [userInfoCurrent, setUserInfoCurrent] = useState();
+
+  // const fetchImages = useCallback(async () => {
+  //   const res = await axios.get("https://api.imgflip.com/get_memes");
+  //   return res.data.data.memes;
+  // }, []);
+
+  const fetchData = useCallback(async (query) => {
+    const res = await axios.get(
+      `https://aqueous-garden-38681.herokuapp.com/${query}`
+    );
+    return res;
+  }, []);
 
   useEffect(() => {
-    axios
-      .get('https://aqueous-garden-38681.herokuapp.com/')
-      .then(function (response) {
-        // handle success
-        console.log(response);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      });
-  }, []);
+    fetchData("messages").then((res) => {
+      // const {
+      //   tweetsFetch: {
+      //     data: { allMessages },
+      //   },
+      // } = tweets;
+      const tweets = res.data.allMessages;
+      setTweets(tweets);
+    });
+    fetchData("users").then((res) => {
+      const users = res.data.allUsers;
+      setUserInfo(users);
+      setUserInfoCurrent(users[0]);
+    });
+  }, [fetchData]);
 
   return (
     <>
@@ -39,27 +54,28 @@ function App() {
           <Navbar setSearchQuery={setSearchQuery}></Navbar>
         </header>
 
-        <main className="container-main">
-          {/* inside each component, wrap html in <section> */}
-          <Switch>
-            <Route path="/tweet/:id?">
-              <TweetDetails tweets={tweets}></TweetDetails>
-            </Route>
-            <Route path="/search">
-              <SearchResults
-                tweets={tweets}
-                searchQuery={searchQuery}
-              ></SearchResults>
-            </Route>
-            <Route path="/userinfo">
-              <UserInfo tweets={tweets} userInfo={userInfo}></UserInfo>
-            </Route>
-            <Route exact path="/">
-              <TweetsOverview tweets={tweets}></TweetsOverview>
-            </Route>
-          </Switch>
-        </main>
-
+        {tweets && (
+          <main className="container-main">
+            {/* inside each component, wrap html in <section> */}
+            <Switch>
+              <Route path="/tweet/:id?">
+                <TweetDetails tweets={tweets}></TweetDetails>
+              </Route>
+              <Route path="/search">
+                <SearchResults
+                  tweets={tweets}
+                  searchQuery={searchQuery}
+                ></SearchResults>
+              </Route>
+              <Route path="/user/:id?">
+                <UserInfo tweets={tweets} userInfo={userInfo}></UserInfo>
+              </Route>
+              <Route exact path="/">
+                <TweetsOverview tweets={tweets}></TweetsOverview>
+              </Route>
+            </Switch>
+          </main>
+        )}
         {/* <footer>
         <Footer></Footer>
       </footer> */}
