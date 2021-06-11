@@ -14,14 +14,11 @@ function App() {
   const [userInfo, setUserInfo] = useState();
   const [searchQuery, setSearchQuery] = useState();
   const [userInfoCurrent, setUserInfoCurrent] = useState();
-  const history = useHistory();
-
-  // const fetchImages = useCallback(async () => {
-  //   const res = await axios.get("https://api.imgflip.com/get_memes");
-  //   return res.data.data.memes;
-  // }, []);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = useCallback(async (query) => {
+    setIsLoading(true);
+
     const res = await axios.get(
       `https://aqueous-garden-38681.herokuapp.com/${query}`
     );
@@ -37,58 +34,63 @@ function App() {
       // } = tweets;
       const tweets = res.data.allMessages;
       setTweets(tweets);
+      setIsLoading(false);
     });
     fetchData("users").then((res) => {
       const users = res.data.allUsers;
       setUserInfo(users);
       setUserInfoCurrent(users[0]);
+      setIsLoading(false);
     });
   }, [fetchData]);
 
   return (
     <>
-      {tweets && (
-        <div className="container-fluid d-flex flex-column align-items-center">
-          <header className="container-main">
-            <Navbar
-              setSearchQuery={setSearchQuery}
-              userInfoCurrent={userInfoCurrent}
-            ></Navbar>
-          </header>
+      <div className="container-fluid d-flex flex-column align-items-center">
+        {/* {isLoading && <p>Content is loading...</p>} */}
+        {tweets && (
+          <>
+            <header className="container-main">
+              <Navbar
+                setSearchQuery={setSearchQuery}
+                userInfoCurrent={userInfoCurrent}
+              ></Navbar>
+            </header>
 
-          <main className="container-main mt-3">
-            {/* inside each component, wrap html in <section> */}
-            <Switch>
-              <Route path="/tweet/:id?">
-                <TweetDetails
-                  tweets={tweets}
-                  fetchData={fetchData}
-                ></TweetDetails>
-              </Route>
-              <Route path="/search">
-                <SearchResults
-                  tweets={tweets}
-                  searchQuery={searchQuery}
-                  fetchData={fetchData}
-                ></SearchResults>
-              </Route>
-              <Route path="/user/:id?">
-                <UserInfo userInfo={userInfo} fetchData={fetchData}></UserInfo>
-              </Route>
-              <Route exact path="/">
-                <TweetsOverview
-                  tweets={tweets}
-                  fetchData={fetchData}
-                ></TweetsOverview>
-              </Route>
-            </Switch>
-          </main>
-
-          {/* <footer>
-        <Footer></Footer>
-      </footer> */}
-        </div>
-      )}
+            <main className="container-main mt-3">
+              {/* inside each component, wrap html in <section> */}
+              <Switch>
+                <Route path="/tweet/:id?">
+                  <TweetDetails
+                    tweets={tweets}
+                    fetchData={fetchData}
+                  ></TweetDetails>
+                </Route>
+                <Route path="/search">
+                  <SearchResults
+                    tweets={tweets}
+                    searchQuery={searchQuery}
+                    fetchData={fetchData}
+                    userInfo={userInfo}
+                  ></SearchResults>
+                </Route>
+                <Route path="/user/:id?">
+                  <UserInfo
+                    userInfo={userInfo}
+                    fetchData={fetchData}
+                  ></UserInfo>
+                </Route>
+                <Route exact path="/">
+                  <TweetsOverview
+                    tweets={tweets}
+                    fetchData={fetchData}
+                  ></TweetsOverview>
+                </Route>
+              </Switch>
+            </main>
+          </>
+        )}
+      </div>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import logoIcon from "./chicken.png"; // with import
 import userIcon from "./user.png"; // with import
 import searchIcon from "./loupe.png"; // with import
@@ -27,9 +27,9 @@ export default function Navbar({ setSearchQuery, userInfoCurrent }) {
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid d-flex ">
           <div>
-            <a href="#">
+            <Link to="/">
               <img src={logoIcon} className="logo mx-2" />
-            </a>
+            </Link>
           </div>
 
           <div

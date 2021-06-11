@@ -38,14 +38,6 @@ export default function TweetPreview({ tweet, fetchData }) {
           </div>
         </div>
       )}
-      {/* <p>
-        This is preview of tweet:
-        <Link to={`/tweet/${tweet.id}`}>{tweet.id}</Link>
-      </p> */}
-      {/* Franz' code for testing routing above, can be deleted */}
-
-      {/* Short summary of tweet: text, date... */}
-      {/* bootstrap cards may be used : https://getbootstrap.com/docs/5.0/components/card/ */}
     </>
   );
 }
