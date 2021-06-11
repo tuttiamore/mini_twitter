@@ -4,6 +4,7 @@ export default function TweetPreview({ tweet }) {
     return string.split(' ').slice(0, 10).join(' ');
   }
 
+
   return (
     <>
       {/* Franz' code for testing routing below ,can be deleted */}
