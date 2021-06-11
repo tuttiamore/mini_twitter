@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { format } from "date-fns";
 
 export default function TweetDetails({ tweets }) {
   const { id } = useParams();
@@ -7,10 +8,12 @@ export default function TweetDetails({ tweets }) {
     <>
       <div className="card">
         <div className="card-body">
-          <h6 className="card-subtitle mb-2 text-muted">
-            User: {tweet.id_user}
+          <h5 className="card-subtitle mb-2 d-inline-block">
+            User {tweet.id_user}
+          </h5>
+          <h6 className="card-subtitle mb-2 text-muted d-inline-block ms-1">
+            {format(tweet.date, "yyyy-MM-dd HH:mm:ss")}
           </h6>
-          <h5 className="card-title">Tweet id: {tweet.id}</h5>
 
           <p className="card-text">{tweet.text}</p>
         </div>

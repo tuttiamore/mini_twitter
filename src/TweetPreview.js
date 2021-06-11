@@ -1,26 +1,30 @@
 import { Link } from "react-router-dom";
+import { format } from "date-fns";
+
 export default function TweetPreview({ tweet }) {
   function preview(string) {
     return string.split(" ").slice(0, 10).join(" ");
   }
 
-  console.log(tweet.date);
-
   return (
     <>
       {/* Franz' code for testing routing below ,can be deleted */}
-
-      <div className="card m-2">
-        <div className="card-body">
-          <h6 className="card-subtitle mb-2 text-muted">
-            posted by {tweet.id_user} on
-          </h6>
-          <h5 className="card-title">Tweet id: {tweet.id}</h5>
-          <p className="card-text">{preview(tweet.text)}...</p>
-          To the Tweet:
-          <Link to={`/tweet/${tweet.id}`}>{tweet.id}</Link>
+      <Link
+        to={`/tweet/${tweet.id}`}
+        className="link-dark text-body text-decoration-none"
+      >
+        <div className="card m-2">
+          <div className="card-body">
+            <h5 className="card-subtitle mb-2 d-inline-block">
+              User {tweet.id_user}
+            </h5>
+            <h6 className="card-subtitle mb-2 text-muted d-inline-block ms-1">
+              {format(tweet.date, "yyyy-MM-dd HH:mm:ss")}
+            </h6>
+            <p className="card-text">{preview(tweet.text)}...</p>
+          </div>
         </div>
-      </div>
+      </Link>
       {/* <p>
         This is preview of tweet:
         <Link to={`/tweet/${tweet.id}`}>{tweet.id}</Link>

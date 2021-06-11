@@ -23,11 +23,11 @@ function App() {
   return (
     <>
       <div className="container-fluid d-flex flex-column align-items-center">
-        <header className="container w-50">
+        <header className="container-main">
           <Navbar setSearchQuery={setSearchQuery}></Navbar>
         </header>
 
-        <main className="container w-50">
+        <main className="container-main">
           {/* inside each component, wrap html in <section> */}
           <Switch>
             <Route path="/tweet/:id?">
