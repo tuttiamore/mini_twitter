@@ -1,6 +1,6 @@
 import {useHistory} from "react-router-dom";
 
-export default function Navbar({setSearchQuery}) {
+export default function Navbar({setSearchQuery,userInfoCurrent}) {
   const history=useHistory();
 
     const handleSubmit = (e) => {
@@ -10,7 +10,8 @@ export default function Navbar({setSearchQuery}) {
     }
 
     const handleClick = (e) => {
-        history.push("/userInfo")
+      console.log(userInfoCurrent)
+        //history.push(`/user/${userInfoCurrent._id}`)
     }
   
   return (
@@ -40,7 +41,7 @@ export default function Navbar({setSearchQuery}) {
       <form class="d-flex" onSubmit={handleSubmit}>
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQueryInput" />
         <button class="btn btn-outline-success" type="submit">Search</button>
-        <button class="btn btn-outline-success" type="submit" onClick={handleClick}>Userinfo</button>
+        <button class="btn btn-outline-success" onClick={handleClick}>Userinfo</button>
       </form>
     </div>
   </div>

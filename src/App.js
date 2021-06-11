@@ -73,7 +73,7 @@ function App() {
                 ></SearchResults>
               </Route>
               <Route path="/user/:id?">
-                <UserInfo userInfo={userInfo} fetchData={fetchData}></UserInfo>
+                <UserInfo userInfo={userInfo} userInfoCurrent={userInfoCurrent} fetchData={fetchData}></UserInfo>
               </Route>
               <Route exact path="/">
                 <TweetsOverview
