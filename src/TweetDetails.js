@@ -7,8 +7,17 @@ export default function TweetDetails({ tweets }) {
     <>
       {/* // display detailled info on a single tweet */}
       {/* Franz' code for testing routing below ,can be deleted */}
-      <p>Here are details of tweet with id {tweet.id} </p>
+      {/* <p>Here are details of tweet with id {tweet.id} </p> */}
       {/* Franz' code for testing routing above, can be deleted */}
+      <div class="d-flex justify-content-center">
+        <div class="card w-75">
+          <div class="card-body">
+            <h5 class="card-title">Id number: {tweet.id}</h5>
+            <p class="card-text">{tweet.text}</p>
+            {/* <p class="card-text">{tweet.date}</p> */}
+          </div>
+        </div>
+      </div>
     </>
   );
 }
