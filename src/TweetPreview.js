@@ -1,23 +1,22 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 export default function TweetPreview({ tweet }) {
   function preview(string) {
-    return string.split(' ').slice(0, 10).join(' ');
+    return string.split(" ").slice(0, 10).join(" ");
   }
 
+  console.log(tweet.date);
 
   return (
     <>
       {/* Franz' code for testing routing below ,can be deleted */}
 
-      <div className="card" style={{ width: '18rem' }}>
+      <div className="card m-2">
         <div className="card-body">
-          <h5 className="card-title">Tweet id: {tweet.id}</h5>
           <h6 className="card-subtitle mb-2 text-muted">
-            User: {tweet.id_user}
+            posted by {tweet.id_user} on
           </h6>
-          <p className="card-text">
-            This is preview of tweet: {preview(tweet.text)}...
-          </p>
+          <h5 className="card-title">Tweet id: {tweet.id}</h5>
+          <p className="card-text">{preview(tweet.text)}...</p>
           To the Tweet:
           <Link to={`/tweet/${tweet.id}`}>{tweet.id}</Link>
         </div>
