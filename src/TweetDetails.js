@@ -2,7 +2,8 @@ import { useParams } from 'react-router-dom';
 
 export default function TweetDetails({ tweets }) {
   const { id } = useParams();
-  const tweet = tweets.filter((tweet) => tweet.id === id)[0];
+  const tweet = tweets.filter((tweet) => tweet.id == id)[0];
+
   return (
     <>
       <div className="card" style={{ width: '18rem' }}>
