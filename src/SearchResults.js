@@ -9,7 +9,7 @@ export default function SearchResults({tweets, searchQuery}) {
     const tweetLowerCase=tweet.text.toLowerCase();
     const searchQueryLowerCase=searchQuery.toLowerCase();
     return tweetLowerCase.includes(searchQueryLowerCase);
-    
+    console.log(filterTweets);
   })
   
   
