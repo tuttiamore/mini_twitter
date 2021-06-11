@@ -5,12 +5,9 @@ import { Route, Switch, useHistory } from "react-router-dom";
 import axios from "axios";
 import Navbar from "./Navbar";
 import TweetsOverview from "./TweetsOverview";
-import TweetPreview from "./TweetPreview";
 import TweetDetails from "./TweetDetails";
 import SearchResults from "./SearchResults";
 import UserInfo from "./UserInfo";
-import mockTweetData from "./mockTweetData.js";
-import mockUserInfo from "./mockUserInfo.js";
 
 function App() {
   const [tweets, setTweets] = useState();
@@ -50,13 +47,16 @@ function App() {
 
   return (
     <>
-      <div className="container-fluid d-flex flex-column align-items-center">
-        <header className="container-main">
-          <Navbar setSearchQuery={setSearchQuery}></Navbar>
-        </header>
+      {tweets && (
+        <div className="container-fluid d-flex flex-column align-items-center">
+          <header className="container-main">
+            <Navbar
+              setSearchQuery={setSearchQuery}
+              userInfoCurrent={userInfoCurrent}
+            ></Navbar>
+          </header>
 
-        {tweets && (
-          <main className="container-main">
+          <main className="container-main mt-3">
             {/* inside each component, wrap html in <section> */}
             <Switch>
               <Route path="/tweet/:id?">
@@ -73,7 +73,7 @@ function App() {
                 ></SearchResults>
               </Route>
               <Route path="/user/:id?">
-                <UserInfo userInfo={userInfo} userInfoCurrent={userInfoCurrent} fetchData={fetchData}></UserInfo>
+                <UserInfo userInfo={userInfo} fetchData={fetchData}></UserInfo>
               </Route>
               <Route exact path="/">
                 <TweetsOverview
@@ -83,11 +83,12 @@ function App() {
               </Route>
             </Switch>
           </main>
-        )}
-        {/* <footer>
+
+          {/* <footer>
         <Footer></Footer>
       </footer> */}
-      </div>
+        </div>
+      )}
     </>
   );
 }

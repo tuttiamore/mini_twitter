@@ -19,7 +19,6 @@ export default function UserInfoDetail({ userInfo, fetchData }) {
           <div class="card-body">
             <h5 class="card-title">User name: {userInfo.name}</h5>
             <p class="card-text">Email: {userInfo.email}</p>
-            <p class="card-text">Password: {userInfo.password}</p>
             <h6>Posts by user:</h6>
             {userTweets &&
               userTweets.map((tweet) => {
